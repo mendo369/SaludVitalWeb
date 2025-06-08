@@ -1,1 +1,46 @@
-<p>login works!</p>
+<div class="w-[300px] bg-white py-4 rounded shadow flex flex-col gap-4 items-center">
+  <div class="w-full h-24">
+    <img src="assets/logo-short.png" alt="Salud Vital" class="w-full h-full" />
+  </div>
+
+  <!-- Formulario -->
+  <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="flex flex-col items-center gap-4 w-full px-4">
+    
+    <!-- Username -->
+    <div class="flex flex-col gap-1 items-center w-full">
+      <label for="username">Nombre de usuario</label>
+      <input 
+        type="text" 
+        id="username"
+        name="username"
+        [(ngModel)]="model.username" 
+        required
+        class="border p-1 rounded w-full"
+        placeholder="1006000111"
+      />
+    </div>
+
+    <!-- Password -->
+    <div class="flex flex-col gap-1 items-center w-full">
+      <label for="password">Contraseña</label>
+      <input 
+        type="password" 
+        id="password"
+        name="password"
+        [(ngModel)]="model.password" 
+        required
+        class="border p-1 rounded w-full"
+        placeholder="contraseña"
+      />
+    </div>
+
+    <!-- Botón enviar -->
+    <button 
+      type="submit" 
+      class="bg-green-600 p-2 rounded text-white w-full"
+      [disabled]="!loginForm.form.valid"
+    >
+      Enviar
+    </button>
+  </form>
+</div>
