@@ -1,0 +1,7 @@
+.insurance{
+    @apply p-2 rounded-sm shadow cursor-pointer hover:scale-105 min-w-[200px]
+}
+
+.insurance h3{
+    @apply text-blue-500 font-bold;
+}

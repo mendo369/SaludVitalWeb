@@ -1,0 +1,15 @@
+.specialty{
+    @apply p-2 rounded-sm shadow cursor-pointer hover:scale-105
+}
+
+.specialty h3{
+    @apply text-blue-500 font-bold;
+}
+
+ .doctor{
+    @apply flex flex-col gap-2 items-center justify-center shadow hover:scale-105 cursor-pointer h-[200px] w-[150px];
+ }
+
+ textarea{
+    resize: none;
+ }

@@ -1,0 +1,92 @@
+<div class="flex w-full h-full">
+  <div class="w-2/3 h-full p-2 flex flex-col gap-2">
+    <!-- Servicios -->
+    <div class="flex flex-col gap-4 h-full w-full overflow-hidden">
+      <h1 class="font-bold text-xl">Servicios</h1>
+      <div class="flex flex-wrap gap-4 overflow-scroll p-2">
+        <div class="specialty">
+          <h3>Consulta médica general</h3>
+          <p>Atención primaria para diagnóstico y tratamiento general</p>
+        </div>
+        <div class="specialty">
+          <h3>Consulta pediátrica</h3>
+          <p>Atención para niños desde recién nacidos hasta 12 años</p>
+        </div>
+        <div class="specialty">
+          <h3>Evaluación nutricional</h3>
+          <p>Asesoría dietética y control nutricional personalizado</p>
+        </div>
+        <div class="specialty">
+          <h3>Chequeo cardiológico</h3>
+          <p>Exámenes y diagnóstico de enfermedades del corazón</p>
+        </div>
+        <div class="specialty">
+          <h3>Consulta dermatológica</h3>
+          <p>Evaluación y tratamiento de condiciones de la piel</p>
+        </div>
+        <div class="specialty">
+          <h3>Ecografía abdominal</h3>
+          <p>Imágenes médicas para diagnóstico de órganos internos</p>
+        </div>
+        <div class="specialty">
+          <h3>Consulta ginecológica</h3>
+          <p>Control de salud femenina y chequeos rutinarios</p>
+        </div>
+        <div class="specialty">
+          <h3>Laboratorio clínico</h3>
+          <p>Exámenes de sangre, orina y otros análisis de rutina</p>
+        </div>
+        <div class="specialty">
+          <h3>Consulta psicológica</h3>
+          <p>Apoyo emocional y terapia psicológica individual</p>
+        </div>
+        <div class="specialty">
+          <h3>Control de presión arterial</h3>
+          <p>Medición y seguimiento de presión sanguínea</p>
+        </div>
+        <div class="specialty">
+          <h3>Vacunación</h3>
+          <p>Aplicación de vacunas del esquema nacional e internacionales</p>
+        </div>
+        <div class="specialty">
+          <h3>Certificados médicos</h3>
+          <p>Emisión de certificados para trabajo, escuela o licencias</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Formulario para crear/editar servicios -->
+  <div class="w-1/3 h-full border-l-2 border-[rgba(0,0,0,0.1)] overflow-hidden">
+    <div class="h-full flex items-start justify-center overflow-scroll py-4">
+      <form class="flex flex-col border p-4 rounded border-black shadow gap-4 min-w-[400px]">
+
+        <!-- Nombre del servicio -->
+        <div>
+          <label class="block text-sm font-medium">Nombre</label>
+          <input type="text" name="nombreServicio" placeholder="Ej: Consulta nutricional"
+            class="w-full border rounded px-2 py-1" />
+        </div>
+        <!-- Costo del servicio -->
+        <div>
+          <label class="block text-sm font-medium">Costo</label>
+          <input type="text" name="nombreServicio" placeholder="Ej: Consulta nutricional"
+            class="w-full border rounded px-2 py-1" />
+        </div>
+
+        <!-- Descripción del servicio -->
+        <div>
+          <label class="block text-sm font-medium">Descripción</label>
+          <textarea name="descripcion" placeholder="Detalle del servicio..."
+            class="w-full border rounded px-2 py-1" rows="4"></textarea>
+        </div>
+
+        <!-- Botones -->
+        <div class="flex justify-between">
+          <button class="bg-green-500 text-white px-4 py-2 rounded">Guardar</button>
+          <button class="bg-red-500 text-white px-4 py-2 rounded">Eliminar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
