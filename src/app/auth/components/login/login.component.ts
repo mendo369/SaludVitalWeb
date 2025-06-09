@@ -31,7 +31,7 @@ onSubmit() {
             this.router.navigate(['/doctor']);
             break;
           case 3: // Recepcionista
-            this.router.navigate(['/receptionist']);
+            this.router.navigate(['/recepcionista']);
             break;
           default:
             this.router.navigate(['/']); // Volver al login si no coincide
