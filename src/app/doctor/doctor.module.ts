@@ -3,13 +3,17 @@ import { CommonModule } from '@angular/common';
 
 import { DoctorRoutingModule } from './doctor-routing.module';
 import { DoctorComponent } from './doctor.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { AppointmentComponent } from './components/appointment/appointment.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { PatientsComponent } from './components/patients/patients.component';
 
 
 @NgModule({
   declarations: [
     DoctorComponent,
-    DashboardComponent
+    AppointmentComponent,
+    SidebarComponent,
+    PatientsComponent
   ],
   imports: [
     CommonModule,

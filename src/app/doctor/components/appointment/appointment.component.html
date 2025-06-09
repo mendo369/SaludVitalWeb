@@ -1,0 +1,97 @@
+<div class="flex w-full h-full">
+  <!-- Lista de citas del doctor -->
+  <div class="w-2/3 h-full p-2 flex flex-col gap-2">
+    <div class="flex flex-col gap-4 h-full w-full overflow-hidden">
+      <h1 class="font-bold text-xl">Agenda del Dr. Juan Pérez</h1>
+      <div class="flex flex-col gap-2 overflow-scroll p-2">
+        <!-- Repetir este bloque por cada cita del doctor -->
+        <div class="specialty border p-4 rounded shadow hover:bg-gray-50">
+          <h3 class="font-semibold">Consulta con Juan Pérez</h3>
+          <p><span class="font-medium">Tipo de consulta:</span> Medicina General</p>
+          <p><span class="font-medium">Fecha:</span> 2025-06-10</p>
+          <p><span class="font-medium">Hora:</span> 10:30 AM</p>
+          <p><span class="font-medium">Costo total:</span> $350.000</p>
+        </div>
+
+        <div class="specialty border p-4 rounded shadow hover:bg-gray-50">
+          <h3 class="font-semibold">Consulta con Juan Pérez</h3>
+          <p><span class="font-medium">Tipo de consulta:</span> Medicina General</p>
+          <p><span class="font-medium">Fecha:</span> 2025-06-11</p>
+          <p><span class="font-medium">Hora:</span> 09:00 AM</p>
+          <p><span class="font-medium">Costo total:</span> $270.000</p>
+        </div>
+
+        <!-- Puedes agregar más bloques aquí -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Formulario para agendar / editar cita (con médico fijo) -->
+  <div class="w-1/3 h-full border-l-2 border-[rgba(0,0,0,0.1)] overflow-hidden">
+    <div class="h-full flex items-start justify-center overflow-scroll py-4">
+      <form class="flex flex-col border p-4 rounded border-black shadow gap-4 min-w-[400px]">
+        <h2 class="text-lg font-semibold text-center">Agendar cita</h2>
+
+        <!-- Paciente -->
+        <div>
+          <label class="block text-sm font-medium">Paciente</label>
+          <select name="idPaciente" class="w-full border rounded px-2 py-1">
+            <option value="">Seleccione un paciente</option>
+            <option value="1">Ana García</option>
+            <option value="2">Luis Torres</option>
+          </select>
+        </div>
+
+        <!-- Tipo de consulta -->
+        <div>
+          <label class="block text-sm font-medium">Tipo de consulta</label>
+          <select name="idTipoConsulta" class="w-full border rounded px-2 py-1">
+            <option value="">Seleccione el tipo</option>
+            <option value="1">Medicina General</option>
+            <option value="2">Pediatría</option>
+            <option value="3">Cardiología</option>
+          </select>
+        </div>
+
+        <!-- Fecha y hora -->
+        <div class="flex gap-2">
+          <div class="flex-1">
+            <label class="block text-sm font-medium">Fecha</label>
+            <input type="date" name="fechaCita" class="w-full border rounded px-2 py-1" />
+          </div>
+          <div class="flex-1">
+            <label class="block text-sm font-medium">Hora</label>
+            <input type="time" name="horaCita" class="w-full border rounded px-2 py-1" />
+          </div>
+        </div>
+
+        <!-- Observaciones -->
+        <div>
+          <label class="block text-sm font-medium">Observaciones</label>
+          <textarea name="observaciones" rows="3" class="w-full border rounded px-2 py-1"
+            placeholder="Comentarios opcionales..."></textarea>
+        </div>
+
+        <!-- Costo y descuento -->
+        <div class="flex gap-2">
+          <div class="flex-1">
+            <label class="block text-sm font-medium">Costo</label>
+            <input type="text" name="costoConsulta" step="0.01" class="w-full border rounded px-2 py-1"
+              readonly [value]="'270.000'" />
+          </div>
+          <div class="flex-1">
+            <label class="block text-sm font-medium">Descuento</label>
+            <input type="text" name="descuentoAplicado" step="0.01" class="w-full border rounded px-2 py-1"
+              readonly [value]="'15%'">
+          </div>
+        </div>
+
+        <!-- Botones -->
+        <div class="flex justify-between">
+          <button class="bg-blue-500 text-white px-4 py-2 rounded">Guardar</button>
+          <button class="bg-gray-400 text-white px-4 py-2 rounded">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
