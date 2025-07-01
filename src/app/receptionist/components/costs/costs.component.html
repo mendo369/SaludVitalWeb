@@ -1,0 +1,31 @@
+<div class="flex  w-full h-full">
+    <!-- Lista de citas agendadas -->
+    <div class="w-2/3 h-full p-2 flex flex-col gap-2">
+        <div class="flex flex-col gap-4 h-1/2 w-full overflow-hidden">
+            <h1 class="font-bold text-xl">Precios</h1>
+            <div class="flex gap-2 overflow-scroll p-2" *ngIf="!loadAppointmentTypes">
+                <!-- Repetir este bloque por cada cita -->
+                <div class="specialty border p-4 rounded shadow hover:bg-gray-50 cursor-pointer w-[300px]"
+                    *ngFor="let a of appointmentTypes">
+                    <h2>Consulta {{a.nombreTipo}}</h2>
+                    <p class="text-blue-500 font-bold">${{a.costoBase}}</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="flex flex-col gap-4 h-1/2 w-full overflow-hidden">
+            <h1 class="font-bold text-xl">Descuentos por aseguradora</h1>
+            <div class="flex gap-2 overflow-scroll p-2" *ngIf="!loadInsurers">
+                <!-- Repetir este bloque por cada cita -->
+                <div class="w-[300px] specialty border p-4 rounded shadow hover:bg-gray-50 cursor-pointer "
+                    *ngFor="let i of insurers">
+                    <h2 class=" text-nowrap">{{i.nombreAseguradora}}</h2>
+                    <p>Descuento <span class="font-semibold text-blue-500">{{i.descuento | percent}}</span></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>

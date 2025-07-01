@@ -1,94 +1,80 @@
 <div class="flex w-full h-full">
+    <!-- Sección izquierda: Lista de aseguradoras -->
     <div class="w-2/3 h-full p-2 flex gap-2 justify-start items-start">
-        <div class="flex flex-col gap-4 h-full w-full  overflow-hidden">
-            <h1 class="font-bold">Aseguradoras</h1>
-            <div class="flex  flex-wrap gap-4 overflow-scroll p-2">
-                <div class="insurance">
-                    <h3>Provinsalud</h3>
-                    <p><span class="text-green-500 font-semibold">Activa</span></p>
-                </div>
-                <div class="insurance">
-                    <h3>SaludGlobal</h3>
-                    <p><span class="text-red-500 font-semibold">Inactiva</span></p>
-                </div>
-                <div class="insurance">
-                    <h3>VidaPlus</h3>
-                    <p><span class="text-green-500 font-semibold">Activa</span></p>
-                </div>
-                <div class="insurance">
-                    <h3>MegaSalud</h3>
-                    <p><span class="text-green-500 font-semibold">Activa</span></p>
-                </div>
-                <div class="insurance">
-                    <h3>Sanare</h3>
-                    <p><span class="text-red-500 font-semibold">Inactiva</span></p>
-                </div>
-                <div class="insurance">
-                    <h3>CarePlan</h3>
-                    <p><span class="text-green-500 font-semibold">Activa</span></p>
-                </div>
-                <div class="insurance">
-                    <h3>SaludViva</h3>
-                    <p><span class="text-red-500 font-semibold">Inactiva</span></p>
-                </div>
-                <div class="insurance">
-                    <h3>IntegralMed</h3>
-                    <p><span class="text-green-500 font-semibold">Activa</span></p>
-                </div>
-                <div class="insurance">
-                    <h3>EcoSalud</h3>
-                    <p><span class="text-red-500 font-semibold">Inactiva</span></p>
-                </div>
-                <div class="insurance">
-                    <h3>SeguraPlus</h3>
-                    <p><span class="text-green-500 font-semibold">Activa</span></p>
-                </div>
-            </div>
-
+      <div class="flex flex-col gap-4 h-full w-full overflow-hidden">
+        <h1 class="font-bold">Aseguradoras</h1>
+        <div class="flex flex-wrap gap-4 overflow-scroll p-2 max-h-full">
+  
+          <!-- Tarjetas de aseguradoras -->
+          <div 
+            class="insurance border p-2 rounded cursor-pointer transition-all"
+            *ngFor="let insurance of insurers"
+            (click)="selectInsurance(insurance)"
+            [class.border-blue-500]="insurance === selectedInsurance"
+            [class.border-transparent]="insurance !== selectedInsurance">
+  
+            <h3>{{ insurance.nombreAseguradora }}</h3>
+            <p>
+              <span 
+                [ngClass]="{
+                  'text-green-500': insurance.activa,
+                  'text-red-500': !insurance.activa
+                }" 
+                class="font-semibold">
+                {{ insurance.activa ? 'Activa' : 'Inactiva' }}
+              </span>
+            </p>
+          </div>
+  
         </div>
-
+      </div>
     </div>
+  
+    <!-- Sección derecha: Formulario -->
     <div class="w-1/3 h-full border-l-2 border-[rgba(0,0,0,0.1)] overflow-hidden pt-4">
-        <div class="h-1/3 flex items-center justify-center pt-4">
-            <form class="flex flex-col border p-4 rounded border-black shadow gap-4 min-w-[400px]">
-                <!-- Nombre de la aseguradora -->
-                <div>
-                    <label class="block text-sm font-medium">Nombre de la aseguradora</label>
-                    <input type="text" name="nombreAseguradora" class="w-full border rounded px-2 py-1"
-                        placeholder="Ej: Provinsalud" required />
-                </div>
-
-                <!-- Teléfono -->
-                <div>
-                    <label class="block text-sm font-medium">Teléfono</label>
-                    <input type="tel" name="telefono" class="w-full border rounded px-2 py-1"
-                        placeholder="Ej: +58 412-1234567" />
-                </div>
-
-                <!-- Email -->
-                <div>
-                    <label class="block text-sm font-medium">Email</label>
-                    <input type="email" name="email" class="w-full border rounded px-2 py-1"
-                        placeholder="Ej: contacto@aseguradora.com" />
-                </div>
-
-                <!-- Estado (activa o inactiva) -->
-                <div>
-                    <label class="block text-sm font-medium">Estado</label>
-                    <select name="activa" class="w-full border rounded px-2 py-1">
-                        <option value="true">Activa</option>
-                        <option value="false">Inactiva</option>
-                    </select>
-                </div>
-
-                <!-- Botones -->
-                <div class="flex items-center justify-center gap-2">
-                    <button class="border-none bg-green-500 text-white p-1 rounded">Guardar</button>
-                    <button class="border-none bg-red-500 text-white p-1 rounded">Eliminar</button>
-                    <button class="border-none bg-gray-300 p-1 rounded">Cancelar</button>
-                </div>
-            </form>
-
-        </div>
+      <div class="h-1/3 flex items-center justify-center pt-4">
+        <form class="flex flex-col border p-4 rounded border-black shadow gap-4 min-w-[400px]" *ngIf="selectedInsurance">
+          <!-- Nombre de la aseguradora -->
+          <div>
+            <label class="block text-sm font-medium">Nombre de la aseguradora</label>
+            <input type="text" name="nombreAseguradora" class="w-full border rounded px-2 py-1"
+                   placeholder="Ej: Provinsalud"
+                   [value]="selectedInsurance?.nombreAseguradora" />
+          </div>
+  
+          <!-- Teléfono -->
+          <div>
+            <label class="block text-sm font-medium">Teléfono</label>
+            <input type="tel" name="telefono" class="w-full border rounded px-2 py-1"
+                   placeholder="Ej: +58 412-1234567"
+                   [value]="selectedInsurance?.telefono" />
+          </div>
+  
+          <!-- Email -->
+          <div>
+            <label class="block text-sm font-medium">Email</label>
+            <input type="email" name="email" class="w-full border rounded px-2 py-1"
+                   placeholder="Ej: contacto@aseguradora.com"
+                   [value]="selectedInsurance?.email" />
+          </div>
+  
+          <!-- Estado (activa o inactiva) -->
+          <div>
+            <label class="block text-sm font-medium">Estado</label>
+            <select name="activa" class="w-full border rounded px-2 py-1"
+                    [value]="selectedInsurance?.activa?.toString()">
+              <option value="true">Activa</option>
+              <option value="false">Inactiva</option>
+            </select>
+          </div>
+  
+          <!-- Botones -->
+          <div class="flex items-center justify-center gap-2 mt-2">
+            <button type="button" class="border-none bg-green-500 text-white p-1 rounded">Guardar</button>
+            <button type="button" class="border-none bg-red-500 text-white p-1 rounded">Eliminar</button>
+            <button type="button" class="border-none bg-gray-300 p-1 rounded">Cancelar</button>
+          </div>
+        </form>
+      </div>
     </div>
-</div>
+  </div>

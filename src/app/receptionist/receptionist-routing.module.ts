@@ -4,6 +4,7 @@ import { ReceptionistComponent } from './receptionist.component';
 import { DoctorsComponent } from './components/doctors/doctors.component';
 import { PatientsComponent } from './components/patients/patients.component';
 import { AppointmentComponent } from './components/appointment/appointment.component';
+import { CostsComponent } from './components/costs/costs.component';
 
 const routes: Routes = [{
     path: '',
@@ -12,6 +13,7 @@ const routes: Routes = [{
       { path: 'doctores', component: DoctorsComponent },
       { path: 'pacientes', component: PatientsComponent },
       { path: 'citas', component: AppointmentComponent },
+      { path: 'costos', component: CostsComponent },
       // Ruta por defecto (opcional)
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]

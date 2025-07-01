@@ -1,5 +1,5 @@
 .specialty{
-    @apply p-2 rounded-sm shadow cursor-pointer hover:scale-105
+    @apply p-2 rounded-sm shadow cursor-pointer 
 }
 
 .specialty h3{

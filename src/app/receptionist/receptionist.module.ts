@@ -7,6 +7,7 @@ import { PatientsComponent } from './components/patients/patients.component';
 import { AppointmentComponent } from './components/appointment/appointment.component';
 import { DoctorsComponent } from './components/doctors/doctors.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { CostsComponent } from './components/costs/costs.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     PatientsComponent,
     AppointmentComponent,
     DoctorsComponent,
-    SidebarComponent
+    SidebarComponent,
+    CostsComponent
   ],
   imports: [
     CommonModule,
