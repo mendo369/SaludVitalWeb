@@ -22,6 +22,12 @@ export class AppointmentsService {
     });
   }
 
+  getAllPatientAppointments(patientId:number): Observable<Cita[]> {
+    return this.http.get<Cita[]>(`${this.appointmentsUrl}/paciente/${patientId}`, {
+      headers: this.headersJson,
+    });
+  }
+
   createCita(cita: CreateCitaDto): Observable<Cita> {
     return this.http.post<Cita>(this.appointmentsUrl, cita, {
       headers: this.headersJson

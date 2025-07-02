@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Cita } from 'src/app/shared/interfaces/appointment';
 import { Paciente } from 'src/app/shared/interfaces/patients';
+import { AppointmentsService } from 'src/app/shared/services/appointments.service';
 import { PatientsService } from 'src/app/shared/services/patients.service';
 
 @Component({
@@ -10,9 +12,10 @@ import { PatientsService } from 'src/app/shared/services/patients.service';
 export class PatientsComponent implements OnInit {
 
   patients: Paciente[] = [];
+  patientAppointments:Cita[] = []
   selectedPatient: Paciente | null = null;
 
-  constructor(private patientsService: PatientsService) {}
+  constructor(private patientsService: PatientsService, private appointmentServices:AppointmentsService) {}
 
   ngOnInit(): void {
     this.getAllPatients();
@@ -31,10 +34,24 @@ export class PatientsComponent implements OnInit {
   }
 
   selectPatient(patient: Paciente) {
-    if(this.selectedPatient == patient){
-      this.selectedPatient = null;
-      return
-    }
-    this.selectedPatient = patient;
+  this.selectedPatient = this.selectedPatient === patient ? null : patient;
+
+  if (this.selectedPatient) {
+    this.getPatientAppointments(this.selectedPatient.idPaciente);
+  } else {
+    this.patientAppointments = [];
+  }
+}
+
+  getPatientAppointments(patientId:number){
+    this.appointmentServices.getAllPatientAppointments(patientId).subscribe({
+      next: (response) => {
+        this.patientAppointments = response;
+        console.log(response);
+      },
+      error: (error) => {
+        console.error('Error al cargar pacientes:', error);
+      }
+    })
   }
 }

@@ -1,151 +1,142 @@
 <div class="flex w-full h-full">
-    <!-- Lista de Pacientes -->
-    <div class="w-2/3 h-full p-2 flex flex-col gap-2">
-        <div class="flex flex-col gap-3 h-full w-full">
-            <h1 class="font-bold">Pacientes</h1>
-            <div class="flex flex-wrap gap-4 overflow-scroll p-2">
-                <div 
-                  *ngFor="let patient of patients"
-                  class="doctor border p-4 rounded shadow min-w-[180px] text-center cursor-pointer transition-all"
-                  [class.border-blue-500]="patient === selectedPatient"
-                  (click)="selectPatient(patient)">
-                  
-                  <img src="https://randomuser.me/api/portraits/men/21.jpg"
-                       class="w-16 h-16 rounded-full mx-auto mb-2 bg-blue-300">
-              
-                  <p class="font-bold text-lg">{{ patient.nombre }} {{ patient.apellido }}</p>
-                  <p>N° ID: {{ patient.numeroIdentificacion }}</p>
-                  <p>
-                    <span 
-                      [ngClass]="{
+  <!-- Lista de Pacientes -->
+  <div class="w-2/3 h-full p-2 flex flex-col gap-2">
+    <div class="flex flex-col gap-3 h-full w-full">
+      <h1 class="font-bold">Pacientes</h1>
+      <div class="flex flex-wrap gap-4 overflow-scroll p-2">
+        <div *ngFor="let patient of patients"
+          class="doctor border p-4 rounded shadow min-w-[180px] text-center cursor-pointer transition-all"
+          [class.border-blue-500]="patient === selectedPatient" (click)="selectPatient(patient)">
+
+          <img src="https://randomuser.me/api/portraits/men/21.jpg"
+            class="w-16 h-16 rounded-full mx-auto mb-2 bg-blue-300">
+
+          <p class="font-bold text-lg">{{ patient.nombre }} {{ patient.apellido }}</p>
+          <p>N° ID: {{ patient.numeroIdentificacion }}</p>
+          <p>
+            <span [ngClass]="{
                         'text-green-500': patient.activo,
                         'text-red-500': !patient.activo
-                      }" 
-                      class="font-semibold">
-                      {{ patient.activo ? 'Activo' : 'Inactivo' }}
-                    </span>
-                  </p>
-                </div>
-              </div>
+                      }" class="font-semibold">
+              {{ patient.activo ? 'Activo' : 'Inactivo' }}
+            </span>
+          </p>
         </div>
+      </div>
     </div>
+  </div>
 
-    <!-- Formulario de Paciente -->
-<div class="w-1/3 h-full border-l-2 border-[rgba(0,0,0,0.1)] overflow-hidden">
-    <div class="h-full flex items-start justify-center overflow-scroll py-2">
+  <!-- Formulario de Paciente -->
+  <div class="w-1/3 h-full border-l-2 border-[rgba(0,0,0,0.1)] overflow-hidden">
+    <div class="h-full flex flex-col items-center justify-start overflow-scroll py-2">
       <form class="flex flex-col border p-4 rounded border-black shadow gap-4 min-w-[400px]" *ngIf="selectedPatient">
-  
+
         <!-- Imagen del paciente -->
         <div class="flex items-center justify-center">
-          <img src="https://randomuser.me/api/portraits/men/21.jpg"
-               alt="Foto del paciente"
-               class="w-20 h-20 rounded-full overflow-hidden bg-blue-300">
+          <img src="https://randomuser.me/api/portraits/men/21.jpg" alt="Foto del paciente"
+            class="w-20 h-20 rounded-full overflow-hidden bg-blue-300">
         </div>
-  
+
         <!-- Nombre y Apellido -->
         <div class="flex gap-2">
           <div class="flex-1">
             <label class="block text-sm font-medium">Nombre</label>
-            <input type="text" name="nombre" class="w-full border rounded px-2 py-1"
-                   [value]="selectedPatient?.nombre">
+            <input type="text" name="nombre" class="w-full border rounded px-2 py-1" [value]="selectedPatient?.nombre">
           </div>
           <div class="flex-1">
             <label class="block text-sm font-medium">Apellido</label>
             <input type="text" name="apellido" class="w-full border rounded px-2 py-1"
-                   [value]="selectedPatient?.apellido">
+              [value]="selectedPatient?.apellido">
           </div>
         </div>
-  
+
         <!-- Tipo y Número de identificación -->
         <div class="flex gap-2">
           <div class="flex-1">
             <label class="block text-sm font-medium">Tipo ID</label>
             <input type="text" name="tipoIdentificacion" class="w-full border rounded px-2 py-1"
-                   [value]="selectedPatient?.tipoIdentificacion">
+              [value]="selectedPatient?.tipoIdentificacion">
           </div>
           <div class="flex-1">
             <label class="block text-sm font-medium">N° Identificación</label>
             <input type="text" name="numeroIdentificacion" class="w-full border rounded px-2 py-1"
-                   [value]="selectedPatient?.numeroIdentificacion">
+              [value]="selectedPatient?.numeroIdentificacion">
           </div>
         </div>
-  
+
         <!-- Fecha de nacimiento -->
         <div>
           <label class="block text-sm font-medium">Fecha de nacimiento</label>
           <input type="date" name="fechaNacimiento" class="w-full border rounded px-2 py-1"
-                 [value]="selectedPatient?.fechaNacimiento!.split('T')[0]">
+            [value]="selectedPatient?.fechaNacimiento!.split('T')[0]">
         </div>
-  
+
         <!-- Teléfono y Email -->
         <div>
           <label class="block text-sm font-medium">Teléfono</label>
-          <input type="tel" name="telefono" class="w-full border rounded px-2 py-1"
-                 [value]="selectedPatient?.telefono">
+          <input type="tel" name="telefono" class="w-full border rounded px-2 py-1" [value]="selectedPatient?.telefono">
         </div>
         <div>
           <label class="block text-sm font-medium">Email</label>
-          <input type="email" name="email" class="w-full border rounded px-2 py-1"
-                 [value]="selectedPatient?.email">
+          <input type="email" name="email" class="w-full border rounded px-2 py-1" [value]="selectedPatient?.email">
         </div>
-  
+
         <!-- Dirección -->
         <div>
           <label class="block text-sm font-medium">Dirección</label>
           <input type="text" name="direccion" class="w-full border rounded px-2 py-1"
-                 [value]="selectedPatient?.direccion">
+            [value]="selectedPatient?.direccion">
         </div>
-  
+
         <!-- Tipo Paciente y Aseguradora -->
         <div class="flex gap-2">
           <div class="flex-1">
             <label class="block text-sm font-medium">ID Tipo Paciente</label>
             <input type="number" name="idTipoPaciente" class="w-full border rounded px-2 py-1"
-                   [value]="selectedPatient?.tipoPaciente!.idTipoPaciente">
+              [value]="selectedPatient?.tipoPaciente!.idTipoPaciente">
           </div>
           <div class="flex-1">
             <label class="block text-sm font-medium">ID Aseguradora</label>
             <input type="number" name="idAseguradora" class="w-full border rounded px-2 py-1"
-                   [value]="selectedPatient?.aseguradora!.idAseguradora">
+              [value]="selectedPatient?.aseguradora!.idAseguradora">
           </div>
         </div>
-  
+
         <!-- Número de Póliza -->
         <div>
           <label class="block text-sm font-medium">N° Póliza</label>
           <input type="text" name="numeroPoliza" class="w-full border rounded px-2 py-1"
-                 [value]="selectedPatient?.numeroPoliza">
+            [value]="selectedPatient?.numeroPoliza">
         </div>
-  
+
         <!-- Contacto de emergencia -->
         <div>
           <label class="block text-sm font-medium">Contacto de emergencia</label>
           <input type="text" name="contactoEmergencia" class="w-full border rounded px-2 py-1"
-                 [value]="selectedPatient?.contactoEmergencia">
+            [value]="selectedPatient?.contactoEmergencia">
         </div>
         <div>
           <label class="block text-sm font-medium">Tel. de emergencia</label>
           <input type="tel" name="telefonoEmergencia" class="w-full border rounded px-2 py-1"
-                 [value]="selectedPatient?.telefonoEmergencia">
+            [value]="selectedPatient?.telefonoEmergencia">
         </div>
-  
+
         <!-- Estado activo -->
         <div>
           <label class="block text-sm font-medium">Estado</label>
-          <select name="activo" class="w-full border rounded px-2 py-1"
-                  [value]="selectedPatient?.activo?.toString()">
+          <select name="activo" class="w-full border rounded px-2 py-1" [value]="selectedPatient?.activo?.toString()">
             <option value="true">Activo</option>
             <option value="false">Inactivo</option>
           </select>
         </div>
-  
+
         <!-- Fecha registro -->
         <div>
           <label class="block text-sm font-medium">Fecha de registro</label>
           <input type="datetime-local" name="fechaRegistro" class="w-full border rounded px-2 py-1"
-                 [value]="selectedPatient?.fechaRegistro!.replace(' ', 'T')">
+            [value]="selectedPatient?.fechaRegistro!.replace(' ', 'T')">
         </div>
-  
+
         <!-- Botones -->
         <div class="flex justify-end gap-2 mt-4">
           <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition">
@@ -156,6 +147,27 @@
           </button>
         </div>
       </form>
+
+      <div *ngIf="selectedPatient" class="mt-6 flex flex-col items-center">
+        <h2 class="text-xl font-bold mb-4">Citas del paciente: {{ selectedPatient.nombre }} {{ selectedPatient.apellido
+          }}</h2>
+
+        <div *ngIf="patientAppointments.length > 0; else noAppointments" class="flex flex-wrap gap-4 flex flex-col items-center">
+          <div *ngFor="let cita of patientAppointments" class="bg-white shadow rounded-lg p-4 border w-80">
+            <h3 class="font-semibold text-lg">{{ cita.tipoConsulta.nombreTipo }}</h3>
+            <p><strong>Médico:</strong> {{ cita.medico.nombre }} {{ cita.medico.apellido }}</p>
+            <p><strong>Fecha:</strong> {{ cita.fechaCita | date:'mediumDate' }}</p>
+            <p><strong>Hora:</strong> {{ cita.horaCita }}</p>
+            <p><strong>Estado:</strong> {{ cita.estadoCita.nombreEstado }}</p>
+            <p><strong>Costo Total:</strong> ${{ cita.costoTotal }}</p>
+            <p><strong>Observaciones:</strong> {{ cita.observaciones || 'Ninguna' }}</p>
+          </div>
+        </div>
+
+        <ng-template #noAppointments>
+          <p class="text-gray-500">Este paciente no tiene citas registradas.</p>
+        </ng-template>
+      </div>
     </div>
   </div>
 </div>
