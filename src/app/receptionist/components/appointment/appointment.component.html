@@ -5,48 +5,13 @@
             <h1 class="font-bold text-xl">Citas agendadas</h1>
             <div class="flex flex-col gap-2 overflow-scroll p-2">
                 <!-- Repetir este bloque por cada cita -->
-                <div class="specialty border p-4 rounded shadow hover:bg-gray-50">
-                    <h3 class="font-semibold">Consulta con Dr. Juan Pérez</h3>
-                    <p><span class="font-medium">Paciente:</span> Ana García</p>
-                    <p><span class="font-medium">Tipo de consulta:</span> Medicina General</p>
-                    <p><span class="font-medium">Fecha:</span> 2025-06-10</p>
-                    <p><span class="font-medium">Hora:</span> 10:30 AM</p>
-                    <p><span class="font-medium">Costo total:</span> $350.000</p>
-                </div>
-                <div class="specialty border p-4 rounded shadow hover:bg-gray-50">
-                    <h3 class="font-semibold">Consulta con Dra. Laura Méndez</h3>
-                    <p><span class="font-medium">Paciente:</span> Carlos Rivera</p>
-                    <p><span class="font-medium">Tipo de consulta:</span> Pediatría</p>
-                    <p><span class="font-medium">Fecha:</span> 2025-06-11</p>
-                    <p><span class="font-medium">Hora:</span> 09:00 AM</p>
-                    <p><span class="font-medium">Costo total:</span> $250.000</p>
-                </div>
-
-                <div class="specialty border p-4 rounded shadow hover:bg-gray-50">
-                    <h3 class="font-semibold">Consulta con Dr. Miguel Torres</h3>
-                    <p><span class="font-medium">Paciente:</span> Laura Jiménez</p>
-                    <p><span class="font-medium">Tipo de consulta:</span> Cardiología</p>
-                    <p><span class="font-medium">Fecha:</span> 2025-06-12</p>
-                    <p><span class="font-medium">Hora:</span> 03:45 PM</p>
-                    <p><span class="font-medium">Costo total:</span> $480.000</p>
-                </div>
-
-                <div class="specialty border p-4 rounded shadow hover:bg-gray-50">
-                    <h3 class="font-semibold">Consulta con Dr. Andrés Salinas</h3>
-                    <p><span class="font-medium">Paciente:</span> Pedro López</p>
-                    <p><span class="font-medium">Tipo de consulta:</span> Medicina General</p>
-                    <p><span class="font-medium">Fecha:</span> 2025-06-13</p>
-                    <p><span class="font-medium">Hora:</span> 11:15 AM</p>
-                    <p><span class="font-medium">Costo total:</span> $320.000</p>
-                </div>
-
-                <div class="specialty border p-4 rounded shadow hover:bg-gray-50">
-                    <h3 class="font-semibold">Consulta con Dra. Sofía Herrera</h3>
-                    <p><span class="font-medium">Paciente:</span> Mariana Díaz</p>
-                    <p><span class="font-medium">Tipo de consulta:</span> Dermatología</p>
-                    <p><span class="font-medium">Fecha:</span> 2025-06-14</p>
-                    <p><span class="font-medium">Hora:</span> 01:30 PM</p>
-                    <p><span class="font-medium">Costo total:</span> $410.000</p>
+                <div class="specialty border p-4 rounded shadow hover:bg-gray-50" *ngFor="let a of citas">
+                    <h3 class="font-semibold">Consulta con Dr.{{a.medico.nombre}} {{a.medico.apellido}}</h3>
+                    <p><span class="font-medium">Paciente:</span> {{a.paciente.nombre}} {{a.paciente.apellido}}</p>
+                    <p><span class="font-medium">Tipo de consulta:</span> {{a.tipoConsulta.nombreTipo}}</p>
+                    <p><span class="font-medium">Fecha:</span> {{a.fechaCita}}</p>
+                    <p><span class="font-medium">Hora:</span> {{a.horaCita}}</p>
+                    <p><span class="font-medium">Costo total:</span> {{a.costoTotal}}</p>
                 </div>
 
             </div>
@@ -57,76 +22,98 @@
     <div class="w-1/3 h-full border-l-2 border-[rgba(0,0,0,0.1)] overflow-hidden">
         <div class="h-full flex items-start justify-center overflow-scroll py-4">
             <form class="flex flex-col border p-4 rounded border-black shadow gap-4 min-w-[400px]">
-                <!-- Paciente -->
-                <div>
-                    <label class="block text-sm font-medium">Paciente</label>
-                    <select name="idPaciente" class="w-full border rounded px-2 py-1">
-                        <option value="">Seleccione un paciente</option>
-                        <option value="1">Ana García</option>
-                        <option value="2">Luis Torres</option>
-                    </select>
-                </div>
+  <!-- Paciente -->
+  <div>
+    <label class="block text-sm font-medium">Paciente</label>
+    <select name="idPaciente" class="w-full border rounded px-2 py-1"
+            [(ngModel)]="selectedPaciente"
+            (change)="onPacienteChange($event)">
+      <option value="">Seleccione un paciente</option>
+      <option [value]="p.idPaciente" *ngFor="let p of pacientes">
+        {{p.numeroIdentificacion}} - {{p.nombre}} {{p.apellido}}
+      </option>
+    </select>
+  </div>
 
-                <!-- Médico -->
-                <div>
-                    <label class="block text-sm font-medium">Médico</label>
-                    <select name="idMedico" class="w-full border rounded px-2 py-1">
-                        <option value="">Seleccione un médico</option>
-                        <option value="1">Dr. Juan Pérez</option>
-                        <option value="2">Dra. María Rojas</option>
-                    </select>
-                </div>
+  <!-- Médico -->
+  <div>
+    <label class="block text-sm font-medium">Médico</label>
+    <select name="idMedico" class="w-full border rounded px-2 py-1"
+            [(ngModel)]="selectedMedico">
+      <option value="">Seleccione un médico</option>
+      <option [value]="p.idMedico" *ngFor="let p of doctors">
+        {{p.nombre}} {{p.apellido}}
+      </option>
+    </select>
+  </div>
 
-                <!-- Tipo de consulta -->
-                <div>
-                    <label class="block text-sm font-medium">Tipo de consulta</label>
-                    <select name="idTipoConsulta" class="w-full border rounded px-2 py-1">
-                        <option value="">Seleccione el tipo</option>
-                        <option value="1">Medicina General</option>
-                        <option value="2">Pediatría</option>
-                        <option value="3">Cardiología</option>
-                    </select>
-                </div>
+  <!-- Tipo de consulta -->
+  <div>
+    <label class="block text-sm font-medium">Tipo de consulta</label>
+    <select name="idTipoConsulta" class="w-full border rounded px-2 py-1"
+            [(ngModel)]="selectedTipoConsulta"
+            (change)="onTipoConsultaChange($event)">
+      <option value="">Seleccione el tipo</option>
+      <option [value]="tipo.idTipoConsulta" *ngFor="let tipo of appointmentTypes">
+        {{tipo.nombreTipo}} - ${{tipo.costoBase}}
+      </option>
+    </select>
+  </div>
 
-                <!-- Fecha y hora -->
-                <div class="flex gap-2">
-                    <div class="flex-1">
-                        <label class="block text-sm font-medium">Fecha</label>
-                        <input type="date" name="fechaCita" class="w-full border rounded px-2 py-1" />
-                    </div>
-                    <div class="flex-1">
-                        <label class="block text-sm font-medium">Hora</label>
-                        <input type="time" name="horaCita" class="w-full border rounded px-2 py-1" />
-                    </div>
-                </div>
+  <!-- Fecha y hora -->
+  <div class="flex gap-2">
+    <div class="flex-1">
+      <label class="block text-sm font-medium">Fecha</label>
+      <input type="date" name="fechaCita" class="w-full border rounded px-2 py-1"
+             [(ngModel)]="fechaCita" />
+    </div>
+    <div class="flex-1">
+      <label class="block text-sm font-medium">Hora</label>
+      <input type="time" name="horaCita" class="w-full border rounded px-2 py-1"
+             [(ngModel)]="horaCita" />
+    </div>
+  </div>
 
-                <!-- Observaciones -->
-                <div>
-                    <label class="block text-sm font-medium">Observaciones</label>
-                    <textarea name="observaciones" rows="3" class="w-full border rounded px-2 py-1"
-                        placeholder="Comentarios opcionales..."></textarea>
-                </div>
+  <!-- Observaciones -->
+  <div>
+    <label class="block text-sm font-medium">Observaciones</label>
+    <textarea name="observaciones" rows="3" class="w-full border rounded px-2 py-1"
+              [(ngModel)]="observaciones"
+              placeholder="Comentarios opcionales..."></textarea>
+  </div>
 
-                <!-- Costo y descuento -->
-                <div class="flex gap-2">
-                    <div class="flex-1">
-                        <label class="block text-sm font-medium">Costo</label>
-                        <input type="text" name="costoConsulta" step="0.01" class="w-full border rounded px-2 py-1"
-                            readonly [value]="'270.000'" />
-                    </div>
-                    <div class="flex-1">
-                        <label class="block text-sm font-medium">Descuento</label>
-                        <input type="text" name="descuentoAplicado" step="0.01" class="w-full border rounded px-2 py-1"
-                            readonly [value]="'15%'">
-                    </div>
-                </div>
+  <!-- Costo, Descuento y Total -->
+  <div class="flex flex-col gap-2">
+    <div class="flex gap-2">
+      <div class="flex-1">
+        <label class="block text-sm font-medium">Costo Base</label>
+        <input type="text" class="w-full border rounded px-2 py-1" readonly
+               [value]="'$' + costoConsulta.toFixed(2)" />
+      </div>
+      <div class="flex-1">
+        <label class="block text-sm font-medium">Descuento (%)</label>
+        <input type="text" class="w-full border rounded px-2 py-1" readonly
+               [value]="'-' + descuentoAplicado + '%'" />
+      </div>
+    </div>
 
-                <!-- Botones -->
-                <div class="flex justify-between">
-                    <button class="bg-blue-500 text-white px-4 py-2 rounded">Guardar</button>
-                    <button class="bg-gray-400 text-white px-4 py-2 rounded">Cancelar</button>
-                </div>
-            </form>
+    <div>
+      <label class="block text-sm font-medium">Costo Final</label>
+      <input type="text" class="w-full border rounded px-2 py-1 font-bold bg-green-50" readonly
+             [value]="'$' + costoTotal.toFixed(2)" />
+    </div>
+  </div>
+
+  <!-- Botones -->
+  <div class="flex justify-between">
+    <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded" (click)="guardarCita()">
+      Guardar
+    </button>
+    <button type="button" class="bg-gray-400 text-white px-4 py-2 rounded">
+      Cancelar
+    </button>
+  </div>
+</form>
         </div>
     </div>
 </div>

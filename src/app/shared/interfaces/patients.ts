@@ -30,4 +30,5 @@ export interface Paciente {
     telefono: string;
     email: string;
     activa: boolean;
+    descuento:number;
   }

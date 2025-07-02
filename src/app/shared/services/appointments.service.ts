@@ -2,24 +2,29 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { TipoCita } from '../interfaces/appointment';
+import { Cita, CreateCitaDto } from '../interfaces/appointment';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ServicesService {
+export class AppointmentsService {
   private readonly headersJson = new HttpHeaders({
     'Content-Type': 'application/json',
   });
 
-  private appointmentsUrl = `${environment.backendUrl}tipos-consulta`;
+  private appointmentsUrl = `${environment.backendUrl}citas`;
 
   constructor(private http: HttpClient) {}
 
-  // Obtener todos los médicos
-  getAllAppointmentsTypes(): Observable<TipoCita[]> {
-    return this.http.get<TipoCita[]>(this.appointmentsUrl, {
+  getAllAppointments(): Observable<Cita[]> {
+    return this.http.get<Cita[]>(this.appointmentsUrl, {
       headers: this.headersJson,
+    });
+  }
+
+  createCita(cita: CreateCitaDto): Observable<Cita> {
+    return this.http.post<Cita>(this.appointmentsUrl, cita, {
+      headers: this.headersJson
     });
   }
 }

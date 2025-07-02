@@ -8,6 +8,7 @@ import { AppointmentComponent } from './components/appointment/appointment.compo
 import { DoctorsComponent } from './components/doctors/doctors.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { CostsComponent } from './components/costs/costs.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { CostsComponent } from './components/costs/costs.component';
   ],
   imports: [
     CommonModule,
-    ReceptionistRoutingModule
+    ReceptionistRoutingModule,
+    FormsModule
   ]
 })
 export class ReceptionistModule { }
