@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Cita, CreateCitaDto, TipoCita } from 'src/app/shared/interfaces/appointment';
+import { Cita, CreateCitaDto, TipoCita, UpdateEstadoCitaDto } from 'src/app/shared/interfaces/appointment';
 import { Medico } from 'src/app/shared/interfaces/doctors';
 import { Aseguradora } from 'src/app/shared/interfaces/insurers';
 
@@ -16,6 +16,7 @@ import { Paciente } from 'src/app/shared/interfaces/patients';
   styleUrls: ['./appointment.component.css'],
 })
 export class AppointmentComponent implements OnInit {
+
   // Listados
   appointmentTypes: TipoCita[] = [];
   insurers: Aseguradora[] = [];
@@ -279,4 +280,32 @@ export class AppointmentComponent implements OnInit {
       },
     });
   }
+
+  iniciarCita(idCita: number) {
+  const dto: UpdateEstadoCitaDto = { idEstado: 2 }; // Suponiendo que 2 es "En progreso"
+  this.citaService.updateEstadoCita(idCita, dto).subscribe({
+    next: (citaActualizada) => {
+      console.log('Cita iniciada:', citaActualizada);
+      this.loadAllAppointments(); // Recargar lista
+    },
+    error: (err) => {
+      console.error('Error al iniciar cita:', err);
+      alert('No se pudo iniciar la cita');
+    }
+  });
+}
+
+cancelarCita(idCita: number) {
+  const dto: UpdateEstadoCitaDto = { idEstado: 4 }; // Suponiendo que 3 es "Cancelada"
+  this.citaService.updateEstadoCita(idCita, dto).subscribe({
+    next: (citaActualizada) => {
+      console.log('Cita cancelada:', citaActualizada);
+      this.loadAllAppointments(); // Recargar lista
+    },
+    error: (err) => {
+      console.error('Error al cancelar cita:', err);
+      alert('No se pudo cancelar la cita');
+    }
+  });
+}
 }

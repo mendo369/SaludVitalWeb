@@ -22,4 +22,9 @@ export class ServicesService {
       headers: this.headersJson,
     });
   }
+
+  updateAppointmentType(service: TipoCita): Observable<TipoCita> {
+    const url = `${this.appointmentsUrl}/${service.idTipoConsulta}`;
+    return this.http.put<TipoCita>(url, service);
+  }
 }

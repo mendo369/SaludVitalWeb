@@ -11,6 +11,7 @@ import { InsurancesComponent } from './components/insurances/insurances.componen
 import { DoctorsComponent } from './components/doctors/doctors.component';
 import { RecepcionistsComponent } from './components/recepcionists/recepcionists.component';
 import { PatientsComponent } from './components/patients/patients.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { PatientsComponent } from './components/patients/patients.component';
   ],
   imports: [
     CommonModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    FormsModule
   ]
 })
 export class AdminModule { }

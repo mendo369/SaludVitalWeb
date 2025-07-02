@@ -37,4 +37,31 @@ export class InsurancesComponent implements OnInit {
     }
     this.selectedInsurance = insurance;
   }
+
+  guardarCambios() {
+  if (!this.selectedInsurance) {
+    alert('No hay ninguna aseguradora seleccionada.');
+    return;
+  }
+
+  // Validación del descuento
+  const descuento = this.selectedInsurance.descuento;
+
+  if (descuento < 0 || descuento > 100) {
+    alert('El descuento debe estar entre 0 y 100.');
+    return;
+  }
+
+  // Llamada al servicio para actualizar
+  this.service.updateAseguradora(this.selectedInsurance).subscribe({
+    next: (response) => {
+      alert('¡Datos guardados correctamente!');
+      console.log('Aseguradora actualizada:', response);
+    },
+    error: (err) => {
+      console.error('Error al guardar:', err);
+      alert('Hubo un error al guardar los datos.');
+    }
+  });
+}
 }

@@ -5,22 +5,26 @@ import { environment } from 'src/environments/environment';
 import { Aseguradora } from '../interfaces/insurers';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class InsurersService {
-
   private readonly headersJson = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-  
-    private insurersUrl = `${environment.backendUrl}aseguradoras`;
-  
-    constructor(private http: HttpClient) {}
+    'Content-Type': 'application/json',
+  });
 
-    // Obtener todos los médicos
-      getAll(): Observable<Aseguradora[]> {
-        return this.http.get<Aseguradora[]>(this.insurersUrl, {
-          headers: this.headersJson
-        });
-      }
+  private insurersUrl = `${environment.backendUrl}aseguradoras`;
+
+  constructor(private http: HttpClient) {}
+
+  // Obtener todos los médicos
+  getAll(): Observable<Aseguradora[]> {
+    return this.http.get<Aseguradora[]>(this.insurersUrl, {
+      headers: this.headersJson,
+    });
+  }
+
+  updateAseguradora(aseguradora: Aseguradora): Observable<Aseguradora> {
+    const url = `${this.insurersUrl}/${aseguradora.idAseguradora}`;
+    return this.http.put<Aseguradora>(url, aseguradora);
+  }
 }

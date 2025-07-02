@@ -114,3 +114,7 @@ export interface Usuario {
   fechaCreacion: string; // LocalDateTime
   ultimoAcceso: string | null;
 }
+
+export interface UpdateEstadoCitaDto {
+  idEstado: number;
+}

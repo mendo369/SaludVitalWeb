@@ -5,13 +5,31 @@
             <h1 class="font-bold text-xl">Citas agendadas</h1>
             <div class="flex flex-col gap-2 overflow-scroll p-2">
                 <!-- Repetir este bloque por cada cita -->
-                <div class="specialty border p-4 rounded shadow hover:bg-gray-50" *ngFor="let a of citas">
-                    <h3 class="font-semibold">Consulta con Dr.{{a.medico.nombre}} {{a.medico.apellido}}</h3>
-                    <p><span class="font-medium">Paciente:</span> {{a.paciente.nombre}} {{a.paciente.apellido}}</p>
-                    <p><span class="font-medium">Tipo de consulta:</span> {{a.tipoConsulta.nombreTipo}}</p>
-                    <p><span class="font-medium">Fecha:</span> {{a.fechaCita}}</p>
-                    <p><span class="font-medium">Hora:</span> {{a.horaCita}}</p>
-                    <p><span class="font-medium">Costo total:</span> {{a.costoTotal}}</p>
+                <div class="specialty border p-4 rounded shadow hover:bg-gray-50 flex justify-between items-center"
+                    *ngFor="let a of citas">
+
+                    <!-- Información de la cita -->
+                    <div>
+                        <h3 class="font-semibold">Consulta con Dr. {{a.medico.nombre}} {{a.medico.apellido}}</h3>
+                        <p><span class="font-medium">Paciente:</span> {{a.paciente.nombre}} {{a.paciente.apellido}}</p>
+                        <p><span class="font-medium">Tipo de consulta:</span> {{a.tipoConsulta.nombreTipo}}</p>
+                        <p><span class="font-medium">Fecha:</span> {{a.fechaCita}}</p>
+                        <p><span class="font-medium">Hora:</span> {{a.horaCita}}</p>
+                        <p><span class="font-medium">Costo total:</span> ${{a.costoTotal.toFixed(2)}}</p>
+                    </div>
+
+                    <!-- Botones alineados a la derecha y centrados verticalmente -->
+                    <div class="flex flex-col gap-2">
+                        <button (click)="iniciarCita(a.idCita)"
+                            class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm transition">
+                            Iniciar Cita
+                        </button>
+                        <button (click)="cancelarCita(a.idCita)"
+                            class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm transition">
+                            Cancelar
+                        </button>
+                    </div>
+
                 </div>
 
             </div>
@@ -22,98 +40,94 @@
     <div class="w-1/3 h-full border-l-2 border-[rgba(0,0,0,0.1)] overflow-hidden">
         <div class="h-full flex items-start justify-center overflow-scroll py-4">
             <form class="flex flex-col border p-4 rounded border-black shadow gap-4 min-w-[400px]">
-  <!-- Paciente -->
-  <div>
-    <label class="block text-sm font-medium">Paciente</label>
-    <select name="idPaciente" class="w-full border rounded px-2 py-1"
-            [(ngModel)]="selectedPaciente"
-            (change)="onPacienteChange($event)">
-      <option value="">Seleccione un paciente</option>
-      <option [value]="p.idPaciente" *ngFor="let p of pacientes">
-        {{p.numeroIdentificacion}} - {{p.nombre}} {{p.apellido}}
-      </option>
-    </select>
-  </div>
+                <!-- Paciente -->
+                <div>
+                    <label class="block text-sm font-medium">Paciente</label>
+                    <select name="idPaciente" class="w-full border rounded px-2 py-1" [(ngModel)]="selectedPaciente"
+                        (change)="onPacienteChange($event)">
+                        <option value="">Seleccione un paciente</option>
+                        <option [value]="p.idPaciente" *ngFor="let p of pacientes">
+                            {{p.numeroIdentificacion}} - {{p.nombre}} {{p.apellido}}
+                        </option>
+                    </select>
+                </div>
 
-  <!-- Médico -->
-  <div>
-    <label class="block text-sm font-medium">Médico</label>
-    <select name="idMedico" class="w-full border rounded px-2 py-1"
-            [(ngModel)]="selectedMedico">
-      <option value="">Seleccione un médico</option>
-      <option [value]="p.idMedico" *ngFor="let p of doctors">
-        {{p.nombre}} {{p.apellido}}
-      </option>
-    </select>
-  </div>
+                <!-- Médico -->
+                <div>
+                    <label class="block text-sm font-medium">Médico</label>
+                    <select name="idMedico" class="w-full border rounded px-2 py-1" [(ngModel)]="selectedMedico">
+                        <option value="">Seleccione un médico</option>
+                        <option [value]="p.idMedico" *ngFor="let p of doctors">
+                            {{p.nombre}} {{p.apellido}}
+                        </option>
+                    </select>
+                </div>
 
-  <!-- Tipo de consulta -->
-  <div>
-    <label class="block text-sm font-medium">Tipo de consulta</label>
-    <select name="idTipoConsulta" class="w-full border rounded px-2 py-1"
-            [(ngModel)]="selectedTipoConsulta"
-            (change)="onTipoConsultaChange($event)">
-      <option value="">Seleccione el tipo</option>
-      <option [value]="tipo.idTipoConsulta" *ngFor="let tipo of appointmentTypes">
-        {{tipo.nombreTipo}} - ${{tipo.costoBase}}
-      </option>
-    </select>
-  </div>
+                <!-- Tipo de consulta -->
+                <div>
+                    <label class="block text-sm font-medium">Tipo de consulta</label>
+                    <select name="idTipoConsulta" class="w-full border rounded px-2 py-1"
+                        [(ngModel)]="selectedTipoConsulta" (change)="onTipoConsultaChange($event)">
+                        <option value="">Seleccione el tipo</option>
+                        <option [value]="tipo.idTipoConsulta" *ngFor="let tipo of appointmentTypes">
+                            {{tipo.nombreTipo}} - ${{tipo.costoBase}}
+                        </option>
+                    </select>
+                </div>
 
-  <!-- Fecha y hora -->
-  <div class="flex gap-2">
-    <div class="flex-1">
-      <label class="block text-sm font-medium">Fecha</label>
-      <input type="date" name="fechaCita" class="w-full border rounded px-2 py-1"
-             [(ngModel)]="fechaCita" />
-    </div>
-    <div class="flex-1">
-      <label class="block text-sm font-medium">Hora</label>
-      <input type="time" name="horaCita" class="w-full border rounded px-2 py-1"
-             [(ngModel)]="horaCita" />
-    </div>
-  </div>
+                <!-- Fecha y hora -->
+                <div class="flex gap-2">
+                    <div class="flex-1">
+                        <label class="block text-sm font-medium">Fecha</label>
+                        <input type="date" name="fechaCita" class="w-full border rounded px-2 py-1"
+                            [(ngModel)]="fechaCita" />
+                    </div>
+                    <div class="flex-1">
+                        <label class="block text-sm font-medium">Hora</label>
+                        <input type="time" name="horaCita" class="w-full border rounded px-2 py-1"
+                            [(ngModel)]="horaCita" />
+                    </div>
+                </div>
 
-  <!-- Observaciones -->
-  <div>
-    <label class="block text-sm font-medium">Observaciones</label>
-    <textarea name="observaciones" rows="3" class="w-full border rounded px-2 py-1"
-              [(ngModel)]="observaciones"
-              placeholder="Comentarios opcionales..."></textarea>
-  </div>
+                <!-- Observaciones -->
+                <div>
+                    <label class="block text-sm font-medium">Observaciones</label>
+                    <textarea name="observaciones" rows="3" class="w-full border rounded px-2 py-1"
+                        [(ngModel)]="observaciones" placeholder="Comentarios opcionales..."></textarea>
+                </div>
 
-  <!-- Costo, Descuento y Total -->
-  <div class="flex flex-col gap-2">
-    <div class="flex gap-2">
-      <div class="flex-1">
-        <label class="block text-sm font-medium">Costo Base</label>
-        <input type="text" class="w-full border rounded px-2 py-1" readonly
-               [value]="'$' + costoConsulta.toFixed(2)" />
-      </div>
-      <div class="flex-1">
-        <label class="block text-sm font-medium">Descuento (%)</label>
-        <input type="text" class="w-full border rounded px-2 py-1" readonly
-               [value]="'-' + descuentoAplicado + '%'" />
-      </div>
-    </div>
+                <!-- Costo, Descuento y Total -->
+                <div class="flex flex-col gap-2">
+                    <div class="flex gap-2">
+                        <div class="flex-1">
+                            <label class="block text-sm font-medium">Costo Base</label>
+                            <input type="text" class="w-full border rounded px-2 py-1" readonly
+                                [value]="'$' + costoConsulta.toFixed(2)" />
+                        </div>
+                        <div class="flex-1">
+                            <label class="block text-sm font-medium">Descuento (%)</label>
+                            <input type="text" class="w-full border rounded px-2 py-1" readonly
+                                [value]="'-' + descuentoAplicado + '%'" />
+                        </div>
+                    </div>
 
-    <div>
-      <label class="block text-sm font-medium">Costo Final</label>
-      <input type="text" class="w-full border rounded px-2 py-1 font-bold bg-green-50" readonly
-             [value]="'$' + costoTotal.toFixed(2)" />
-    </div>
-  </div>
+                    <div>
+                        <label class="block text-sm font-medium">Costo Final</label>
+                        <input type="text" class="w-full border rounded px-2 py-1 font-bold bg-green-50" readonly
+                            [value]="'$' + costoTotal.toFixed(2)" />
+                    </div>
+                </div>
 
-  <!-- Botones -->
-  <div class="flex justify-between">
-    <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded" (click)="guardarCita()">
-      Guardar
-    </button>
-    <button type="button" class="bg-gray-400 text-white px-4 py-2 rounded">
-      Cancelar
-    </button>
-  </div>
-</form>
+                <!-- Botones -->
+                <div class="flex justify-between">
+                    <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded" (click)="guardarCita()">
+                        Guardar
+                    </button>
+                    <button type="button" class="bg-gray-400 text-white px-4 py-2 rounded">
+                        Cancelar
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
