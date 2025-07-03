@@ -118,3 +118,8 @@ export interface Usuario {
 export interface UpdateEstadoCitaDto {
   idEstado: number;
 }
+
+export interface AddAdditionalServicesDto {
+  servicioIds: number[];
+  cantidades: { [key: number]: number };
+}

@@ -91,4 +91,28 @@ export class AppointmentsService {
       headers: this.headersJson,
     });
   }
+
+  terminarCita(idCita:number){
+    const url = `${this.appointmentsUrl}/${idCita}/finalizar`;
+    return this.http.post<Cita>(
+      url,
+      {},
+      { headers: this.headersJson }
+    );
+  }
+
+  addAdditionalServicesToAppointment(
+    idCita: number,
+    serviciosAdicionales: {
+      servicioIds: number[];
+      cantidades: { [key: number]: number };
+    }
+  ): Observable<Cita> {
+    const url = `${this.appointmentsUrl}/${idCita}/servicios-adicionales`;
+    return this.http.post<Cita>(
+      url,
+      serviciosAdicionales,
+      { headers: this.headersJson }
+    );
+  }
 }
