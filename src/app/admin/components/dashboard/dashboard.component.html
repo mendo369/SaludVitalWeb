@@ -1,18 +1,24 @@
-<div class="w-full h-full p-2 flex flex-col">
-   <div>
-    <h2 class="text-xl font-bold mb-4">Médicos</h2>
+<div class="w-full h-full p-2 flex flex-col gap-4">
+  <div>
+    <h2 class="text-xl font-bold mb-2">Médicos</h2>
     <div class="w-full max-w-3xl mx-auto my-4">
       <canvas id="medicosChart" class="w-full h-64"></canvas>
     </div>
   </div>
-
-  <div class="mt-8">
-    <h2>Citas canceladas</h2>
+  <hr>
+  <div>
+    <h2 class="text-xl font-bold mb-2">Citas canceladas</h2>
+    <p class="text-lg" *ngIf="totalCanceladas !== undefined">
+      Total de citas canceladas: <strong>{{ totalCanceladas }}</strong>
+    </p>
+    <p *ngIf="totalCanceladas === undefined">Cargando...</p>
     <!-- Aquí irá otro gráfico cuando lo implementes -->
   </div>
-
-  <div class="mt-8">
-    <h2>Servicios adicionales</h2>
-    <!-- Aquí otro gráfico más adelante -->
+  <hr>
+  <div>
+    <h2 class="text-xl font-bold mb-2">Servicios Adicionales (Este mes)</h2>
+    <p>Cantidad total: <strong>{{ cantidadServiciosMensuales }}</strong></p>
+    <p>Ingresos totales: <strong>${{ totalIngresosMensuales.toFixed(2) }}</strong></p>
+    <p>Servicio más solicitado: <strong>{{ servicioMasSolicitadoNombre }}</strong> ({{ servicioMasSolicitadoCantidad }} veces)</p>
   </div>
 </div>
