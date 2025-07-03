@@ -35,6 +35,28 @@ export class AppointmentsService {
     );
   }
 
+  getMedicoIdUsuario(): number | null {
+    const usuarioJson = localStorage.getItem('usuario');
+    if (!usuarioJson) {
+      return null; // No hay datos en el local storage
+    }
+
+    try {
+      const usuario = JSON.parse(usuarioJson);
+      return usuario.idUsuario;
+    } catch (error) {
+      console.error('Error al parsear el objeto del local storage:', error);
+      return null;
+    }
+  }
+
+  getAppointmentsByDoctor(): Observable<Cita[]> {
+    const idUsuario = this.getMedicoIdUsuario()
+    return this.http.get<Cita[]>(`${this.appointmentsUrl}/medico/${idUsuario}`, {
+      headers: this.headersJson,
+    });
+  }
+
   createCita(cita: CreateCitaDto): Observable<Cita> {
     return this.http.post<Cita>(this.appointmentsUrl, cita, {
       headers: this.headersJson,

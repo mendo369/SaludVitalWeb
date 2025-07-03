@@ -1,5 +1,5 @@
 export const environment = {
-    backendUrl: 'http://localhost:8080/api/',
+    backendUrl: 'http://localhost:8082/api/',
     roles:[
         {
             value:1,

@@ -27,4 +27,6 @@ export class ServicesService {
     const url = `${this.appointmentsUrl}/${service.idTipoConsulta}`;
     return this.http.put<TipoCita>(url, service);
   }
+
+  
 }
