@@ -2,160 +2,58 @@
     <div class="w-2/3 h-full p-2 flex flex-col gap-2">
 
         <div class="flex flex-col gap-3 h-full w-full">
-            <div class="flex items-center w-full justify-between" >
+            <div class="flex items-center w-full justify-between">
                 <h1 class="font-bold">Doctores</h1>
                 <div>
                     <label for="">Especialidad: </label>
-                    <select name="" id="">
+                    <select (change)="onSpecialtyChange($event)">
                         <option value="" selected disabled>Seleccionar opción</option>
-                        <option [value]="s.idEspecialidad" *ngFor="let s of specialties">{{s.nombreEspecialidad}}</option>
+                        <option [value]="s.idEspecialidad" *ngFor="let s of specialties">
+                            {{ s.nombreEspecialidad }}
+                        </option>
                     </select>
                 </div>
             </div>
             <div class="flex flex-wrap gap-4 overflow-scroll p-2">
-                <div class="doctor">
+                <div class="doctor" *ngFor="let doctor of filteredDoctors" (click)="selectDoctor(doctor)">
                     <img src="https://img.freepik.com/foto-gratis/cerca-voluntario-sonriendo_23-2149134454.jpg?semt=ais_items_boosted&w=740"
-                        alt="" class="w-10 h-10 rounded-full overflow-hidden bg-blue-300">
-                    <p class="font-bold text-lg">John Doe</p>
-                    <p>Pediatría</p>
-                    <p><span class="text-green-500 font-semibold">Activo</span></p>
+                        alt="Foto de {{ doctor.nombre }} {{ doctor.apellido }}"
+                        class="w-10 h-10 rounded-full overflow-hidden bg-blue-300" />
+                    <p class="font-bold text-lg">{{ doctor.nombre }} {{ doctor.apellido }}</p>
+                    <p>{{ getSpecialtyName(doctor.idEspecialidad) }}</p>
+                    <p>
+                        <span class="font-semibold" [class.text-green-500]="doctor.activo"
+                            [class.text-red-500]="!doctor.activo">
+                            {{ doctor.activo ? 'Activo' : 'Inactivo' }}
+                        </span>
+                    </p>
                 </div>
-                <div class="doctor">
-                    <img src="https://img.freepik.com/foto-gratis/cerca-voluntario-sonriendo_23-2149134454.jpg?semt=ais_items_boosted&w=740"
-                        alt="" class="w-10 h-10 rounded-full overflow-hidden bg-blue-300">
-                    <p class="font-bold text-lg">María Pérez</p>
-                    <p>Cardiología</p>
-                    <p><span class="text-red-500 font-semibold">Inactivo</span></p>
-                </div>
-                <div class="doctor">
-                    <img src="https://img.freepik.com/foto-gratis/cerca-voluntario-sonriendo_23-2149134454.jpg?semt=ais_items_boosted&w=740"
-                        alt="" class="w-10 h-10 rounded-full overflow-hidden bg-blue-300">
-                    <p class="font-bold text-lg">Carlos Gómez</p>
-                    <p>Dermatología</p>
-                    <p><span class="text-green-500 font-semibold">Activo</span></p>
-                </div>
-                <div class="doctor">
-                    <img src="https://img.freepik.com/foto-gratis/cerca-voluntario-sonriendo_23-2149134454.jpg?semt=ais_items_boosted&w=740"
-                        alt="" class="w-10 h-10 rounded-full overflow-hidden bg-blue-300">
-                    <p class="font-bold text-lg">Laura Mendoza</p>
-                    <p>Nutrición</p>
-                    <p><span class="text-red-500 font-semibold">Inactivo</span></p>
-                </div>
-                <div class="doctor">
-                    <img src="https://img.freepik.com/foto-gratis/cerca-voluntario-sonriendo_23-2149134454.jpg?semt=ais_items_boosted&w=740"
-                        alt="" class="w-10 h-10 rounded-full overflow-hidden bg-blue-300">
-                    <p class="font-bold text-lg">Javier Ruiz</p>
-                    <p>Ortopedia</p>
-                    <p><span class="text-green-500 font-semibold">Activo</span></p>
-                </div>
-                <div class="doctor">
-                    <img src="https://img.freepik.com/foto-gratis/cerca-voluntario-sonriendo_23-2149134454.jpg?semt=ais_items_boosted&w=740"
-                        alt="" class="w-10 h-10 rounded-full overflow-hidden bg-blue-300">
-                    <p class="font-bold text-lg">Lucía Fernández</p>
-                    <p>Oftalmología</p>
-                    <p><span class="text-red-500 font-semibold">Inactivo</span></p>
-                </div>
-                <div class="doctor">
-                    <img src="https://img.freepik.com/foto-gratis/cerca-voluntario-sonriendo_23-2149134454.jpg?semt=ais_items_boosted&w=740"
-                        alt="" class="w-10 h-10 rounded-full overflow-hidden bg-blue-300">
-                    <p class="font-bold text-lg">Andrés López</p>
-                    <p>Medicina General</p>
-                    <p><span class="text-green-500 font-semibold">Activo</span></p>
-                </div>
-                <div class="doctor">
-                    <img src="https://img.freepik.com/foto-gratis/cerca-voluntario-sonriendo_23-2149134454.jpg?semt=ais_items_boosted&w=740"
-                        alt="" class="w-10 h-10 rounded-full overflow-hidden bg-blue-300">
-                    <p class="font-bold text-lg">Sofía Morales</p>
-                    <p>Ginecología</p>
-                    <p><span class="text-green-500 font-semibold">Activo</span></p>
-                </div>
-                <div class="doctor">
-                    <img src="https://img.freepik.com/foto-gratis/cerca-voluntario-sonriendo_23-2149134454.jpg?semt=ais_items_boosted&w=740"
-                        alt="" class="w-10 h-10 rounded-full overflow-hidden bg-blue-300">
-                    <p class="font-bold text-lg">Diego Torres</p>
-                    <p>Neurología</p>
-                    <p><span class="text-red-500 font-semibold">Inactivo</span></p>
-                </div>
-                <div class="doctor">
-                    <img src="https://img.freepik.com/foto-gratis/cerca-voluntario-sonriendo_23-2149134454.jpg?semt=ais_items_boosted&w=740"
-                        alt="" class="w-10 h-10 rounded-full overflow-hidden bg-blue-300">
-                    <p class="font-bold text-lg">Valentina Ríos</p>
-                    <p>Endocrinología</p>
-                    <p><span class="text-green-500 font-semibold">Activo</span></p>
-                </div>
-                <div class="doctor">
-                    <img src="https://img.freepik.com/foto-gratis/cerca-voluntario-sonriendo_23-2149134454.jpg?semt=ais_items_boosted&w=740"
-                        alt="" class="w-10 h-10 rounded-full overflow-hidden bg-blue-300">
-                    <p class="font-bold text-lg">Miguel Herrera</p>
-                    <p>Psiquiatría</p>
-                    <p><span class="text-red-500 font-semibold">Inactivo</span></p>
-                </div>
-                <div class="doctor">
-                    <img src="https://img.freepik.com/foto-gratis/cerca-voluntario-sonriendo_23-2149134454.jpg?semt=ais_items_boosted&w=740"
-                        alt="" class="w-10 h-10 rounded-full overflow-hidden bg-blue-300">
-                    <p class="font-bold text-lg">Camila Navarro</p>
-                    <p>Reumatología</p>
-                    <p><span class="text-green-500 font-semibold">Activo</span></p>
-                </div>
-                <div class="doctor">
-                    <img src="https://img.freepik.com/foto-gratis/cerca-voluntario-sonriendo_23-2149134454.jpg?semt=ais_items_boosted&w=740"
-                        alt="" class="w-10 h-10 rounded-full overflow-hidden bg-blue-300">
-                    <p class="font-bold text-lg">Fernando Díaz</p>
-                    <p>Otorrinolaringología</p>
-                    <p><span class="text-green-500 font-semibold">Activo</span></p>
-                </div>
-                <div class="doctor">
-                    <img src="https://img.freepik.com/foto-gratis/cerca-voluntario-sonriendo_23-2149134454.jpg?semt=ais_items_boosted&w=740"
-                        alt="" class="w-10 h-10 rounded-full overflow-hidden bg-blue-300">
-                    <p class="font-bold text-lg">Paula Ramírez</p>
-                    <p>Gastroenterología</p>
-                    <p><span class="text-red-500 font-semibold">Inactivo</span></p>
-                </div>
-                <div class="doctor">
-                    <img src="https://img.freepik.com/foto-gratis/cerca-voluntario-sonriendo_23-2149134454.jpg?semt=ais_items_boosted&w=740"
-                        alt="" class="w-10 h-10 rounded-full overflow-hidden bg-blue-300">
-                    <p class="font-bold text-lg">Luis Castro</p>
-                    <p>Urología</p>
-                    <p><span class="text-green-500 font-semibold">Activo</span></p>
-                </div>
-                <div class="doctor">
-                    <img src="https://img.freepik.com/foto-gratis/cerca-voluntario-sonriendo_23-2149134454.jpg?semt=ais_items_boosted&w=740"
-                        alt="" class="w-10 h-10 rounded-full overflow-hidden bg-blue-300">
-                    <p class="font-bold text-lg">Isabela Suárez</p>
-                    <p>Oncología</p>
-                    <p><span class="text-red-500 font-semibold">Inactivo</span></p>
-                </div>
-                <div class="doctor">
-                    <img src="https://img.freepik.com/foto-gratis/cerca-voluntario-sonriendo_23-2149134454.jpg?semt=ais_items_boosted&w=740"
-                        alt="" class="w-10 h-10 rounded-full overflow-hidden bg-blue-300">
-                    <p class="font-bold text-lg">Tomás Vargas</p>
-                    <p>Hematología</p>
-                    <p><span class="text-green-500 font-semibold">Activo</span></p>
-                </div>
-
             </div>
+
 
         </div>
     </div>
     <div class="w-1/3 h-full border-l-2 border-[rgba(0,0,0,0.1)] overflow-hidden">
 
         <div class="h-full flex items-start justify-center overflow-scroll py-2">
-            <form class="flex flex-col border p-4 rounded border-black shadow gap-4 min-w-[400px] ">
+            <form class="flex flex-col border p-4 rounded border-black shadow gap-4 min-w-[400px]">
                 <!-- Imagen -->
                 <div class="flex items-center justify-center">
-                    <img src="https://img.freepik.com/foto-gratis/cerca-voluntario-sonriendo_23-2149134454.jpg?semt=ais_items_boosted&w=740"
-                        alt="Foto del médico" class="w-20 h-20 rounded-full overflow-hidden bg-blue-300">
+                    <img [src]="'https://img.freepik.com/foto-gratis/cerca-voluntario-sonriendo_23-2149134454.jpg?semt=ais_items_boosted&w=740'"
+                        alt="Foto del médico" class="w-20 h-20 rounded-full overflow-hidden bg-blue-300" />
                 </div>
 
                 <!-- Nombre y Apellido -->
                 <div class="flex gap-2">
                     <div class="flex-1">
                         <label class="block text-sm font-medium">Nombre</label>
-                        <input type="text" name="nombre" class="w-full border rounded px-2 py-1" [value]="'John'" />
+                        <input type="text" name="nombre" class="w-full border rounded px-2 py-1"
+                            [value]="selectedDoctor?.nombre || ''" readonly />
                     </div>
                     <div class="flex-1">
                         <label class="block text-sm font-medium">Apellido</label>
-                        <input type="text" name="apellido" class="w-full border rounded px-2 py-1" [value]="'Smith'" />
+                        <input type="text" name="apellido" class="w-full border rounded px-2 py-1"
+                            [value]="selectedDoctor?.apellido || ''" readonly />
                     </div>
                 </div>
 
@@ -163,44 +61,50 @@
                 <div>
                     <label class="block text-sm font-medium">Número de licencia</label>
                     <input type="text" name="numeroLicencia" class="w-full border rounded px-2 py-1"
-                        [value]="'QWERTY-109238-11'" />
+                        [value]="selectedDoctor?.numeroLicencia || ''" readonly />
                 </div>
 
                 <!-- Especialidad -->
                 <div>
                     <label class="block text-sm font-medium">Especialidad</label>
-                    <input type="text" name="" class="w-full border rounded px-2 py-1" id="" readonly
-                        [value]="'Pediatría'">
+                    <input type="text" name="especialidad" class="w-full border rounded px-2 py-1"
+                        [value]="getSpecialtyName(selectedDoctor?.idEspecialidad ?? 0) || 'Sin especialidad'"
+                        readonly />
                 </div>
 
                 <!-- Horario -->
                 <div class="flex gap-2">
                     <div class="flex-1">
                         <label class="block text-sm font-medium">Horario inicio</label>
-                        <input type="time" name="horarioInicio" class="w-full border rounded px-2 py-1" readonly />
+                        <input type="time" name="horarioInicio" class="w-full border rounded px-2 py-1"
+                            [value]="selectedDoctor?.horarioInicio || ''" readonly />
                     </div>
                     <div class="flex-1">
                         <label class="block text-sm font-medium">Horario fin</label>
-                        <input type="time" name="horarioFin" class="w-full border rounded px-2 py-1" readonly />
+                        <input type="time" name="horarioFin" class="w-full border rounded px-2 py-1"
+                            [value]="selectedDoctor?.horarioFin || ''" readonly />
                     </div>
                 </div>
 
-                <!-- Teléfono y Email -->
+                <!-- Teléfono -->
                 <div>
                     <label class="block text-sm font-medium">Teléfono</label>
-                    <input type="tel" name="telefono" class="w-full border rounded px-2 py-1" [value]="'3009991122'"
-                        readonly />
-                </div>
-                <div>
-                    <label class="block text-sm font-medium">Email</label>
-                    <input type="email" name="email" class="w-full border rounded px-2 py-1" [value]="'doctor@mail.com'"
-                        readonly />
+                    <input type="tel" name="telefono" class="w-full border rounded px-2 py-1"
+                        [value]="selectedDoctor?.telefono || ''" readonly />
                 </div>
 
-                <!-- Estado activo -->
+                <!-- Email -->
+                <div>
+                    <label class="block text-sm font-medium">Email</label>
+                    <input type="email" name="email" class="w-full border rounded px-2 py-1"
+                        [value]="selectedDoctor?.email || ''" readonly />
+                </div>
+
+                <!-- Estado activo/inactivo -->
                 <div>
                     <label class="block text-sm font-medium">Estado</label>
-                    <input type="text" class="w-full border rounded px-2 py-1" readonly [value]="'Activo'">
+                    <input type="text" class="w-full border rounded px-2 py-1"
+                        [value]="selectedDoctor?.activo ? 'Activo' : 'Inactivo'" readonly />
                 </div>
 
                 <!-- Botones -->

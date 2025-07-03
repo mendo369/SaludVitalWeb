@@ -11,6 +11,7 @@ import { SpecialtiesService } from 'src/app/shared/services/specialties.service'
 })
 export class DoctorsComponent implements OnInit {
   doctors: Medico[] = [];
+  filteredDoctors: Medico[] = [];
   specialties: Especialidad[] = [];
 
   selectedDoctor: Medico | null = null;
@@ -27,15 +28,16 @@ export class DoctorsComponent implements OnInit {
   }
 
   loadDoctors() {
-    this.doctorsServices.getAll().subscribe({
-      next: (response) => {
-        this.doctors = response;
-      },
-      error: (err) => {
-        console.error('Error al cargar los doctores:', err);
-      },
-    });
-  }
+  this.doctorsServices.getAll().subscribe({
+    next: (response) => {
+      this.doctors = response;
+      this.filteredDoctors = response; // Inicializamos aquí
+    },
+    error: (err) => {
+      console.error('Error al cargar los doctores:', err);
+    },
+  });
+}
 
   loadSpecialties() {
     this.specialtyService.getAll().subscribe({
@@ -62,4 +64,17 @@ export class DoctorsComponent implements OnInit {
     const specialty = this.specialties.find((s) => s.idEspecialidad === id);
     return specialty ? specialty.nombreEspecialidad : 'Sin especialidad';
   }
+
+  onSpecialtyChange(event: Event): void {
+  const selectElement = event.target as HTMLSelectElement;
+  const selectedId = Number(selectElement.value);
+
+  if (selectedId) {
+    this.filteredDoctors = this.doctors.filter(
+      (doctor) => doctor.idEspecialidad === selectedId
+    );
+  } else {
+    this.filteredDoctors = [...this.doctors]; // Mostrar todos si no hay selección
+  }
+}
 }
