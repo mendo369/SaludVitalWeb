@@ -122,7 +122,7 @@ export class AppointmentComponent {
   loadAllAppointments() {
     this.citaService.getAppointmentsByDoctor().subscribe({
       next: (response) => {
-        this.citas = response;
+        this.citas = response.filter(cita => ![3, 4].includes(cita.estadoCita.idEstado));
         this.loadCitas = false;
       },
       error: (err) => console.error('Error al cargar citas:', err),

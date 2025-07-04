@@ -131,14 +131,16 @@ export class AppointmentComponent implements OnInit {
   }
 
   loadAllAppointments() {
-    this.citaService.getAllAppointments().subscribe({
-      next: (response) => {
-        this.citas = response;
-        this.loadCitas = false;
-      },
-      error: (err) => console.error('Error al cargar citas:', err),
-    });
-  }
+  this.citaService.getAllAppointments().subscribe({
+    next: (response) => {
+      this.citas = response.filter(cita => ![3, 4].includes(cita.estadoCita.idEstado));
+      this.loadCitas = false;
+    },
+    error: (err) => console.error('Error al cargar citas:', err),
+  });
+}
+
+  
 
   onAseguradoraChange(event: Event) {
     const aseguradoraId = Number((event.target as HTMLSelectElement).value);
@@ -273,6 +275,7 @@ export class AppointmentComponent implements OnInit {
         console.log('Cita creada exitosamente:', response);
         alert('✅ Cita guardada correctamente.');
         this.resetForm(); // Opcional: limpiar formulario
+        this.loadAllAppointments()
       },
       error: (error) => {
         console.error('Error al guardar la cita:', error);
