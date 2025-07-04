@@ -133,7 +133,7 @@ export class AppointmentComponent implements OnInit {
   loadAllAppointments() {
   this.citaService.getAllAppointments().subscribe({
     next: (response) => {
-      this.citas = response.filter(cita => ![3, 4].includes(cita.estadoCita.idEstado));
+      this.citas = response.filter(cita => ![2, 3, 4].includes(cita.estadoCita.idEstado));
       this.loadCitas = false;
     },
     error: (err) => console.error('Error al cargar citas:', err),
